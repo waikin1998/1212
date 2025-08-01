@@ -17,32 +17,6 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '759411056484282');
     fbq('track', 'PageView');
-    
-    // Enhanced event tracking
-    window.addEventListener('load', function() {
-        // Track ViewContent event when page loads
-        fbq('track', 'ViewContent', {
-            content_type: 'landing_page',
-            content_category: 'casino_promotion',
-            content_name: 'HengOngBet Landing Page'
-        });
-    });
-    
-    // Function to track Lead event
-    function trackLeadEvent() {
-        fbq('track', 'Lead', {
-            content_name: 'HengOngBet Registration',
-            content_category: 'casino_signup',
-            value: 0,
-            currency: 'USD'
-        });
-        
-        // Track custom event for CTA click
-        fbq('trackCustom', 'CTAClick', {
-            button_text: '领取奖励',
-            landing_page: 'hengongbet_main'
-        });
-    }
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=759411056484282&ev=PageView&noscript=1"
@@ -64,9 +38,8 @@
         .image-container {
             position: relative;
             display: inline-block;
-            max-width: 100%;
+            max-width: 100vw;
             width: 100%;
-            max-width: 480px;
         }
 
         .background-image {
@@ -74,6 +47,7 @@
             height: auto;
             display: block;
             max-width: 100%;
+            object-fit: contain;
         }
 
         .cta-button {
@@ -135,9 +109,18 @@
 <body>
     <div class="image-container">
         <img src="https://page.gensparksite.com/v1/base64_upload/2d9a1998767df1a7893ccb1de12ed30c" alt="HengOngBet" class="background-image">
-        <a href="https://hengongbet7.com" target="_blank" class="cta-button" onclick="trackLeadEvent()">
+        <a href="https://hengongbet7.com" target="_blank" class="cta-button" onclick="trackContact()">
             <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/a56e6b00-fcc6-4c9b-bba9-6400f86252c8" alt="领取奖励">
         </a>
     </div>
+
+    <script>
+        function trackContact() {
+            // Track Contact event when CTA button is clicked
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Contact');
+            }
+        }
+    </script>
 </body>
 </html>
