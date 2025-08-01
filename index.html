@@ -15,15 +15,21 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1051768107111610');
+    fbq('init', '2232002577258108');
     fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1051768107111610&ev=PageView&noscript=1"
+    src="https://www.facebook.com/tr?id=2232002577258108&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Meta Pixel Code -->
     
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -38,16 +44,16 @@
         .image-container {
             position: relative;
             display: inline-block;
-            max-width: 100vw;
+            max-width: 100%;
             width: 100%;
+            max-width: 1080px;
         }
 
         .background-image {
             width: 100%;
-            max-width: 450px;
             height: auto;
             display: block;
-            margin: 0 auto;
+            max-width: 100%;
         }
 
         .cta-button {
@@ -88,10 +94,6 @@
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
-            .background-image {
-                max-width: 100%;
-            }
-            
             .cta-button {
                 width: 35%;
                 min-width: 180px;
@@ -107,6 +109,24 @@
                 max-width: 320px;
                 bottom: -1%;
             }
+        }
+
+        /* Preload optimization */
+        .image-container::before {
+            content: '';
+            display: block;
+            width: 100%;
+            padding-top: 177.78%; /* 16:9 aspect ratio */
+            position: relative;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     </style>
 </head>
