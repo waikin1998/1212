@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HengOngBet Landing Page</title>
     
     <!-- Meta Pixel Code -->
@@ -16,9 +16,10 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '759411056484282');
+    fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=759411056484282&ev=Contact&noscript=1"
+    src="https://www.facebook.com/tr?id=759411056484282&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Meta Pixel Code -->
     
@@ -31,14 +32,12 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            font-family: Arial, sans-serif;
         }
 
         .image-container {
             position: relative;
             display: inline-block;
             max-width: 100%;
-            width: 100%;
         }
 
         .background-image {
@@ -61,7 +60,6 @@
             transition: transform 0.3s ease;
             filter: drop-shadow(0 8px 20px rgba(128, 0, 128, 0.3));
             display: block;
-            z-index: 100;
         }
 
         .cta-button img {
@@ -107,18 +105,9 @@
 <body>
     <div class="image-container">
         <img src="https://page.gensparksite.com/v1/base64_upload/2d9a1998767df1a7893ccb1de12ed30c" alt="HengOngBet" class="background-image">
-        <a href="https://hengongbet7.com" target="_blank" class="cta-button" onclick="trackContact()">
+        <a href="https://hengongbet7.com" target="_blank" class="cta-button" onclick="fbq('track', 'Contact');">
             <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/a56e6b00-fcc6-4c9b-bba9-6400f86252c8" alt="领取奖励">
         </a>
     </div>
-
-    <script>
-        function trackContact() {
-            // Track Contact event when CTA button is clicked
-            if (typeof fbq !== 'undefined') {
-                fbq('track', 'Contact');
-            }
-        }
-    </script>
 </body>
 </html>
