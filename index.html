@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HengOngBet Landing Page</title>
-
+    
     <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
@@ -22,7 +22,7 @@
     src="https://www.facebook.com/tr?id=1446794863131362&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Meta Pixel Code -->
-
+    
     <style>
         body {
             margin: 0;
@@ -32,19 +32,39 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
+            overflow-x: hidden;
         }
 
         .image-container {
             position: relative;
             display: inline-block;
             max-width: 100%;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* 防止布局跳动：设置固定宽高比 */
+        .image-container::before {
+            content: "";
+            display: block;
+            width: 100%;
+            padding-top: 177.78%; /* 16:9的宽高比 = 9/16 * 100% = 56.25%，但根据实际图片调整为177.78% */
         }
 
         .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             display: block;
-            max-width: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .background-image.loaded {
+            opacity: 1;
         }
 
         .cta-button {
@@ -60,12 +80,19 @@
             transition: transform 0.3s ease;
             filter: drop-shadow(0 8px 20px rgba(128, 0, 128, 0.3));
             display: block;
+            z-index: 10;
         }
 
         .cta-button img {
             width: 100%;
             height: auto;
             display: block;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cta-button img.loaded {
+            opacity: 1;
         }
 
         .cta-button:hover {
@@ -80,6 +107,27 @@
             50% {
                 transform: translateX(-50%) scale(1.05);
             }
+        }
+
+        /* 加载占位符 */
+        .loading-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-placeholder.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
         /* Responsive adjustments */
@@ -99,15 +147,84 @@
                 max-width: 320px;
                 bottom: -1%;
             }
+            
+            .image-container::before {
+                padding-top: 200%; /* 移动端调整宽高比 */
+            }
         }
     </style>
 </head>
 <body>
     <div class="image-container">
-        <img src="https://page.gensparksite.com/v1/base64_upload/2d9a1998767df1a7893ccb1de12ed30c" alt="HengOngBet" class="background-image">
+        <!-- 加载占位符 -->
+        <div class="loading-placeholder" id="loadingPlaceholder">
+            <span>Loading...</span>
+        </div>
+        
+        <!-- 背景图片 -->
+        <img src="https://page.gensparksite.com/v1/base64_upload/2d9a1998767df1a7893ccb1de12ed30c" 
+             alt="HengOngBet" 
+             class="background-image" 
+             id="backgroundImage">
+        
+        <!-- CTA按钮 -->
         <a href="https://t.ly/HOBADS07" target="_blank" class="cta-button">
-            <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/a56e6b00-fcc6-4c9b-bba9-6400f86252c8" alt="领取奖励">
+            <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/a56e6b00-fcc6-4c9b-bba9-6400f86252c8" 
+                 alt="领取奖励" 
+                 id="ctaImage">
         </a>
     </div>
+
+    <script>
+        // 图片预加载和防跳动脚本
+        document.addEventListener('DOMContentLoaded', function() {
+            const backgroundImage = document.getElementById('backgroundImage');
+            const ctaImage = document.getElementById('ctaImage');
+            const loadingPlaceholder = document.getElementById('loadingPlaceholder');
+            
+            let backgroundLoaded = false;
+            let ctaLoaded = false;
+            
+            function checkAllLoaded() {
+                if (backgroundLoaded && ctaLoaded) {
+                    // 隐藏加载占位符
+                    loadingPlaceholder.classList.add('hidden');
+                    setTimeout(() => {
+                        loadingPlaceholder.style.display = 'none';
+                    }, 300);
+                }
+            }
+            
+            // 背景图片加载完成
+            backgroundImage.onload = function() {
+                this.classList.add('loaded');
+                backgroundLoaded = true;
+                checkAllLoaded();
+            };
+            
+            // CTA按钮图片加载完成
+            ctaImage.onload = function() {
+                this.classList.add('loaded');
+                ctaLoaded = true;
+                checkAllLoaded();
+            };
+            
+            // 如果图片已经加载（来自缓存）
+            if (backgroundImage.complete) {
+                backgroundImage.onload();
+            }
+            
+            if (ctaImage.complete) {
+                ctaImage.onload();
+            }
+            
+            // 预加载图片
+            const preloadBackground = new Image();
+            const preloadCta = new Image();
+            
+            preloadBackground.src = backgroundImage.src;
+            preloadCta.src = ctaImage.src;
+        });
+    </script>
 </body>
 </html>
