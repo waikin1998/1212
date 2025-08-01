@@ -15,21 +15,15 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1446794863131362');
+    fbq('init', '1051768107111610');
     fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1446794863131362&ev=PageView&noscript=1"
+    src="https://www.facebook.com/tr?id=1051768107111610&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Meta Pixel Code -->
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             margin: 0;
             padding: 0;
@@ -44,17 +38,16 @@
         .image-container {
             position: relative;
             display: inline-block;
-            width: 100%;
             max-width: 100vw;
-            height: auto;
+            width: 100%;
         }
 
         .background-image {
             width: 100%;
+            max-width: 450px;
             height: auto;
             display: block;
-            max-width: 100%;
-            object-fit: contain;
+            margin: 0 auto;
         }
 
         .cta-button {
@@ -95,6 +88,10 @@
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
+            .background-image {
+                max-width: 100%;
+            }
+            
             .cta-button {
                 width: 35%;
                 min-width: 180px;
@@ -109,18 +106,6 @@
                 min-width: 180px;
                 max-width: 320px;
                 bottom: -1%;
-            }
-            
-            .background-image {
-                max-width: 100vw;
-                width: 100vw;
-            }
-        }
-
-        /* Prevent image oversizing */
-        @media (min-width: 1200px) {
-            .image-container {
-                max-width: 1200px;
             }
         }
     </style>
